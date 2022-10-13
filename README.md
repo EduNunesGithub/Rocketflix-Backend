@@ -4,8 +4,8 @@ Backend da aplicação Rocketflix construído com Node e Express.
 
 ### Rotas da Aplicação
 
-Home: https://rocketseat-challenges-rocketflix.onrender.com
-Requisitar um filme aleatório: https://rocketseat-challenges-rocketflix.onrender.com/movies/random
+- Home: https://rocketseat-challenges-rocketflix.onrender.com
+- Requisitar um filme aleatório: https://rocketseat-challenges-rocketflix.onrender.com/movies/random
 
 ### Tecnologias Usadas
 
