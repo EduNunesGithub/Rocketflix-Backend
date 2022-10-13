@@ -19,11 +19,20 @@ interface RequestRandomMovie {
 };
 
 export const requestLatestMovie: RequestLatestMovie = async () => {
-    const response = await fetch(`${baseURL}/movie/latest?api_key=${process.env.TMDB_API_KEY}`);
+    const response: { data: Response } = {
+        data: {} as Response
+    };
 
-    if (!response.ok) return null;
+    try {
+        // @ts-ignore
+        response.data = await fetch(`${baseURL}/movie/latest?api_key=${process.env.TMDB_API_KEY}`);
+    } catch {
+        return null;
+    };
 
-    return await response.json();
+    if (!response.data.ok) return null;
+
+    return await response.data.json();
 };
 
 export const requestRandomMovie: RequestRandomMovie = async () => {
@@ -39,13 +48,21 @@ export const requestRandomMovie: RequestRandomMovie = async () => {
         if (numberOfAttempts.current === numberOfAttempts.maximum) break;
 
         const ID = Math.floor(Math.random() * (latestMovie.id + 1));
+        const response: { data: Response } = {
+            data: {} as Response
+        };
 
-        const response = await fetch(`${baseURL}/movie/${ID}?api_key=${process.env.TMDB_API_KEY}`);
+        try {
+            // @ts-ignore
+            response.data = await fetch(`${baseURL}/movie/${ID}?api_key=${process.env.TMDB_API_KEY}`);
+        } catch (error) {
+            const foo = "bar";
+        };
 
         numberOfAttempts.current += 1;
 
-        if (response.status === 200) {
-            const data: Movie = await response.json();
+        if (response.data.status === 200) {
+            const data: Movie = await response.data.json();
 
             if (data.adult === false) return data;
         };
